@@ -10,7 +10,7 @@ products:
 - Symbionte UN
 ---
 
-# Symbuionte UN
+# Symbionte UN
 
 **Total completion time**:  4 hours (included calibration)
 
