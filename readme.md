@@ -1,15 +1,16 @@
 ---
-page_type: sample
-description: Connecting ESPRESSIF ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
+page_type: based on sample
+description: Symbionte - HVACR protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
 languages:
-- c
+- c, arduino
 products:
 - azure-iot
 - azure-iot-pnp
 - azure-iot-central
+- Symbionte UN
 ---
 
-# Getting started with the ESPRESSIF ESP32 and Azure IoT Central with Azure SDK for C Arduino library
+# Symbuionte UN
 
-**Total completion time**:  30 minutes
+**Total completion time**:  4 hours (included calibration)
 
