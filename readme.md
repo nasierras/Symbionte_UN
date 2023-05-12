@@ -1,6 +1,6 @@
 ---
 page_type: based on sample
-description: Symbionte - HVACR protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
+description: Symbionte
 languages:
 - c, arduino
 products:
@@ -11,6 +11,6 @@ products:
 ---
 
 # Symbionte UN
-
+iot-HVAC&R protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
 **Total completion time**:  4 hours (included calibration)
 
