@@ -265,7 +265,7 @@ $$
 To estimate the actual value in the system, simple modelling of the evaporator is used:
 
 $$ 
-\dot{m}_{r} = \frac{Q_{A}\rho_{A}(\bar{T})C_{p}(\bar{T})\Delta T + Q_{A}(H_{1}-H_{2}+\Delta W\cdot C)}{h(\textup{SST}+\textup{SH}_{\textup{useful}})-h(\textup{LLT})} 
+\dot{m}_{r} = \frac{Q_{A}\rho_{A}(\bar{T})C_{p}(\bar{T})\Delta T + Q_{A}(H_{1}-H_{2}+\Delta W \cdot C)}{h(SST + {SH}_{useful})-h(LLT)} 
 $$
 
 Where:
@@ -282,7 +282,7 @@ Where:
 The mass flow $\bar{\dot{m}}$ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF) ($x_{i}$):
 
 $$
-\bar{\dot{m}} = \displaystyle \sum_{i=1}^{p} (x_{i} \cdot Q_{i} \cdot \dot{m}_{i}) (\displaystyle \frac{T_{\mathrm{OUT_{i}}}-T_{\mathrm{IN_{i}}}}{T_{\mathrm{OUT_{i}}}-T_{\mathrm{DEW}}})
+\bar{\dot{m}} = \displaystyle \sum_{i=1}^{p} (x_{i} \cdot Q_{i} \cdot \dot{m}_{i}) (\displaystyle \frac{T_{OUT_{i}}-T_{IN_{i}}}{T_{OUT_{i}}-T_{DEW}})
 $$
 
 ## Diagnostics sheet
