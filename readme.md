@@ -30,6 +30,7 @@ After doing research about maintenance techniques in air conditioning and refrig
 
 **Total completion time**:  4 hours (included calibration)
 
+
 ```mermaid
 graph LR
 Refrigerant[Refrigerant] --> SH_module[SH_module]
