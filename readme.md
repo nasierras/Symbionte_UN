@@ -61,7 +61,7 @@ To provide more user-friendly navigation, parameter input, and parameter display
 - _Refrigerant menu [C]_: It allows the selection of refrigerant, for the automatic selection of probes and adjusts the application for the protection limits of the compressor’s operating framework.
 - _Protections menu [D]_: Enables the compressor relay outputs, based on voltage, current and three ranges of temperature.
 
-<div style="text-align: center;">
+<div align="center" style="text-align: center;">
   <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="800">
 </div>
 ## iIOT module
