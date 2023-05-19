@@ -12,6 +12,22 @@ products:
 
 # Symbionte UN
 iot-HVAC&R protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
+
+## Abstract
+This project addresses the problem of correct diagnosis of compressors for air conditioning and refrigeration systems, using instrumentation easily found in the global market in order to be low-cost, accessible and easy to assembly and diagnose, for all kind of users. For this work, the use of an Espressif ESP32 controller compatible with Arduino language and connected to Microsoft Azure is proposed, as well as algorithms based on trends that provide to different users, basic and advanced, with real-time knowledge of relevant variables and failures detected in the refrigeration process allows anticipating them under an enhanced condition-based maintenance scheme, reducing incorrect diagnoses and system downtime while improve capabilities for a better failure troubleshooting, control over spare parts and the reduction of spoiled product. Also, in order to massify this solution, this device can be used as an input with system data to generate relevant information to a recurrent neural network which diagnose, not only compressors but the complete system as well, under two significant variables which are coefficient of performance and mass flow.
+
+## Scope
+After doing research about maintenance techniques in air conditioning and refrigeration systems, it was possible to determine critical variables that affects optimal performance in refrigeration and air-conditioning key components, more exactly, the compressor.
+- Electrical values: Compression system is coupled to an electric motor that is cooled (many times) by the refrigerant substance.
+  - Power supply parameters (Voltage)
+  - Consumption parameters (Current)
+  - Efficiency measurement (Power and power factor)
+- Thermodynamic values: The compressor increases the pressure (due to the reduction in volume) to transport refrigerant gas through the pipeline.
+  - Since a pressure/temperature drop across the TXV/EXV (Thermostatic or Electronic Expansion Valve) is essential to the system.
+  - Measurement of superheat and avoid liquid returns or migrations to the compressor.
+  - Knowing the efficiency of the compressor based on the COP/EER (Coefficient of Performance/ Energy Efficiency Ratio)
+- Vibration and CO2 levels: This approach seeks to measure signs of excessive vibration and levels of displacement of the CO2 level to estimate the possibility of refrigerant leakage in the compressor or surrounding systems.
+
 **Total completion time**:  4 hours (included calibration)
 
 ```mermaid
