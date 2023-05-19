@@ -297,6 +297,7 @@ F --No--> J[Normal Superheat Level]
 H --No-->J
 J --> End
 H --Yes--> G
+```
 
 High Superheat Level  has consequences such as:
 - Inefficient Cooling: Superheat is the temperature difference between the refrigerant vapor and its saturation temperature at a given pressure. If the superheat is too high, it means that the refrigerant vapor entering the compressor is significantly above its saturation temperature. This can result in reduced heat transfer efficiency and inefficient cooling in the system, as the refrigerant is not fully evaporating in the evaporator.
