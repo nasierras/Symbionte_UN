@@ -238,8 +238,16 @@ COP Values and Mass Flow: As it was previously defined, it can be seen that the 
 
 ### Coefficient of Performance
 For the COP, generate a percentage error between “ideal” conditions and real conditions, will allow the intelligent system to infer better results between the energy invested and the outputs both in the compressor capacity and in the net refrigerant effect (evaporator capacity).
+
+
 For this approach, it is better to calculate enthalpy values in four points, enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure.
+
+
 The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
+
+$$
+\varepsilon_{\text{COP}} = \frac{COP_{\text{real}}-COP_{\text{ideal}}}{COP_{\text{ideal}}}
+$$
 
 ### Mass flow
 For the mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571 :
