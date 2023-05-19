@@ -239,20 +239,11 @@ This gives to the algorithm a point to evaluate a good approach to a real condit
 -	Risk of freezing: In some cases, a low mass flow rate can lead to the risk of evaporator coil freezing, as the refrigerant may not adequately absorb heat from the air or process being cooled.
 
 ## Diagnostics sheet
-### Measurement and Protections
-Protection flow diagrams are a useful tool to ensure the correct operation and safety of refrigeration compressor diagnostic systems, which in turn are used as input for a Recurrent Neural Network (RNN) in the diagnosis of refrigeration compressor systems.
-1) Electrical Values: This allows the protection to be given internally at the device level and the sending and saving of data to be transmitted with a percentage error (ε). This analysis is based on NEMA (National Electrical Manufacturers Association) criteria.
-Those unbalances have side effects such as:
-1)	Reduced motor performance
-2)	Uneven stress on motor winding
-3)	Increased energy consumption
-4)	Overheating and thermal stress
-5)	Reduced power factor
-Those values will be used in the reference document for using the device and will the output of a different RNN focused on giving to the user a more understandable reading of what is happening inside system.
-
 ### Pressures
 This proccedure is based in the normalized pressure for the device:
-$$P_{N}=\displaystyle \frac{P_{i}-P_{min}}{P_{max} - P_{min}}$$
+
+$$P_{N} = \frac{P_{i}-P_{min}}{P_{max} - P_{min}}$$
+
 Following the pressure flow diagrams:
 ```mermaid
 flowchart TB
