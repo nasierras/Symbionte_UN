@@ -243,19 +243,19 @@ For this approach, it is better to calculate enthalpy values in four points:
 - Enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, 
 
 $$
-COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
+h_{\text{LLTT}} = h(P_{2}, T_{\text{ambient}} + \Delta_{C} + \text{SC})
 $$
 
 - Enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, 
 
 $$
-COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
+h_{\text{EVAP-OUT}} = h(P_{1}, \text{SST + SH}) \text{@ Evaporator}
 $$
 
 - Enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, 
 
 $$
-COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
+h_{\text{RGT}} = h(P_{1}, \text{RGT})
 $$
 
 - Enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure, knowing the isentropic index for the compressor ($\eta$)
