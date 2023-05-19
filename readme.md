@@ -263,7 +263,7 @@ $$
 
 These parameters gaves us the ideal COP:
 $$
-COP_{\text{ideal}} = \frac{h_{\text{EVAP-OUT}}-h_{\text{LLT}}}{h_{\text{DLT}}-h_{\text{RGT}}}
+COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
 $$
 
 The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
