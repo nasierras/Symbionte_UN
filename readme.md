@@ -239,9 +239,32 @@ COP Values and Mass Flow: As it was previously defined, it can be seen that the 
 ### Coefficient of Performance
 For the COP, generate a percentage error between “ideal” conditions and real conditions, will allow the intelligent system to infer better results between the energy invested and the outputs both in the compressor capacity and in the net refrigerant effect (evaporator capacity).
 
+For this approach, it is better to calculate enthalpy values in four points:
 
-For this approach, it is better to calculate enthalpy values in four points, enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure.
+- Enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, 
+$$
 
+$$
+
+- Enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, 
+$$
+
+$$
+
+- Enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, 
+$$
+
+$$
+
+- Enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure, knowing the isentropic index for the compressor ($\eta$)
+$$
+h_{\text{DLT}} = \frac{1}{\eta}\bigg(h(P_{1},s(P_{1},\text{RGT})) - h_{\text{RGT}}\bigg)+h_{\text{RGT}}
+$$
+
+These parameters gaves us the ideal COP:
+$$
+COP_{\text{ideal}} = \frac{h_{\text{EVAP-OUT}}-h_{\text{LLT}}}{h_{\text{DLT}}-h{\text{RGT}}}
+$$
 
 The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
 
