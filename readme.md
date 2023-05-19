@@ -258,7 +258,7 @@ $$
 
 - Enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure, knowing the isentropic index for the compressor ($\eta$)
 $$
-h_{\text{DLT}} = \frac{1}{\eta} \big( h(P_{1},s(P_{1},\text{RGT})) - h_{\text{RGT}} \big) + h_{\text{RGT}}
+h_{DLT} = \frac{1}{\eta} \big(h(P_{1}, s\big(P_{1}, RGT \big)\big) - h_{RGT} \big) + h_{RGT}
 $$
 
 These parameters gaves us the ideal COP:
