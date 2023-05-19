@@ -60,6 +60,36 @@ Besides, sensor input modules have user-predefined configurations, such as unit 
 
 All code implemented in the present work has been developed in the Arduino IDE and the microcontroller device Espressif ESP32. In this case, the development work and future works are Arduino Compatible.
 
+## Envelope/Temperature Module
+The operating envelope of the compressor allows maintenance personnel to identify failures of some system components that may be affecting the performance of the equipment through operation or causing production losses associated with the cold room. The envelope module allows identifying four main conditions, and the interaction between them can yield more information to the maintenance personnel:
+ 
+```mermaid
+graph LR
+APP[Application] ----> EnvelopeProtection[Envelope Protection]
+SSP[SSP] --> EnvelopeProtection
+P_disch[P discharge] --> EnvelopeProtection
+SSP ---> Time_delay[Time delay]
+P_disch ---> Time_delay
+Time_delay --> EnvelopeProtection
+EnvelopeProtection --> ErrorType[Error Type]
+```
+
+Code also determines the vector to be loaded based on the application temperature and refrigerant. Following, if the operating point compared to a boundary (set point and hysteresis) (whether evaporation or condensation) is higher (+1), lower (-1) or inside (0). The optimal conditions (boundaries) were obtained by performing several searches in public manufacturing databases and cross-referencing that information to determine an average zone for protection.
+
+| Nominal| RTOS Code | Description |
+| :---   | :---:     | :---        |
+| ENV0    | 10        | Normal Operation |
+| ENV1    | 11        | Low Evaporation and High Discharge Pressures |
+| ENV2    | 12        | High Discharge  Pressure |
+| ENV3    | 13        | High Evaporation and High Discharge Pressures |
+| ENV4    | 14        | High Evaporation Pressure |
+| ENV5    | 15        | High Evaporation and Low Discharge Pressures |
+| ENV6    | 16        | Low Discharge  Pressures |
+| ENV7    | 17        | Low Evaporation and Low Discharge Pressures |
+| ENV8    | 18        | Low Evaporation Pressure |
+
+RTOS codes for 20 are used for temperature boundaries.
+
 ## Superheat module
 The superheat (SH) is a necessary variable in vapor compression refrigeration systems because the system requires that the state of the input must be gas to avoid liquid refrigerant from entering the compressor.
 
@@ -92,9 +122,9 @@ Each compressor manufacturer determines a minimum level of superheat for their R
 
 | Nominal| RTOS Code | Description |
 | :---   | :---:     | :---        |
-| SH0    | 20        | Normal Superheat |
-| SH1    | 21        | Low Superheat |
-| SH2    | 21        | High Superheat |
+| SH0    | 30        | Normal Superheat |
+| SH1    | 31        | Low Superheat |
+| SH2    | 32        | High Superheat |
 
 ## Electrical Protection Module
 Data acquisitions performed by this module (See Fig. 5) are directly related to voltages and currents; nevertheless, the electrical motor is coupled to a vapor compression system, its nominal values differ from a standard electrical motor. This section will show a description, to determine if the equipment is working at nominal conditions or au contraire this behavior is contributing significantly to increase rate of wear. 
@@ -125,21 +155,14 @@ CurrentProtector --> A_EN[Current Enabler]
 
 Working current are estimated based on the nominal power of the electrical motor of the compressor, using a linear regression modeled with several data published by different manufacturers at different nominal working conditions. This baseline provides the microcontroller with a solid foundation to perform calculations to identify the average or expected current drawn by the electric motor according to the technology, application, and nominal horsepower.
 
-## Envelope/Temperature Module
-The operating envelope of the compressor allows maintenance personnel to identify failures of some system components that may be affecting the performance of the equipment through operation or causing production losses associated with the cold room. The envelope module allows identifying four main conditions, and the interaction between them can yield more information to the maintenance personnel:
- 
-```mermaid
-graph LR
-APP[Application] ----> EnvelopeProtection[Envelope Protection]
-SSP[SSP] --> EnvelopeProtection
-P_disch[P discharge] --> EnvelopeProtection
-SSP ---> Time_delay[Time delay]
-P_disch ---> Time_delay
-Time_delay --> EnvelopeProtection
-EnvelopeProtection --> ErrorType[Error Type]
-```
-
-Code also determines the vector to be loaded based on the application temperature and refrigerant. Following, if the operating point compared to a boundary (set point and hysteresis) (whether evaporation or condensation) is higher (+1), lower (-1) or inside (0). The optimal conditions (boundaries) were obtained by performing several searches in public manufacturing databases and cross-referencing that information to determine an average zone for protection.
+| Nominal| RTOS Code | Description |
+| :---   | :---:     | :---        |
+| VOLT0    | 40        | Normal Voltage|
+| VOLT1    | 41        | Missing  Phase|
+| VOLT2    | 42        | Voltage  Unbalance|
+| AMPS0    | 50        | Normal Amps|
+| AMPS1    | 51        | High Amps  Draw|
+| AMPS2    | 52        | Amps  Unbalance|
 
 ## Vibration and Leakage Module
 Vibration analysis is widely known for the correct diagnosis of rotating parts and allows acceptance of values based on operational guidelines. The main purpose of these alarms is to make timely decisions about the machine, so that by analysing historical data, the machine’s downtime can be reduced, and the process has the least impact. The referential values are based on data provided by the ISO 20816-8 standard, which pertains to reciprocating machines.
@@ -155,6 +178,13 @@ CO2 ----> FailureTestPredictor
 ```
 
 Although the Fourier analysis (FFT) is commonly used in vibration analysis, due to the complexity of implementation and the number of operations required by the microcontroller when acquiring other variables and activating outputs, histogram analysis is used instead. This analysis estimates the probability distribution of the acceleration magnitude based on the physical place where the module is installed.
+
+| Nominal| RTOS Code | Description |
+| :---   | :---:     | :---        |
+| LEAK0    | 70        | Normal Leakage Module|
+| LEAK1    | 71        | Low Vibration with CO2 change|
+| LEAK2    | 72        | High Vibration without CO2 change|
+| LEAK3    | 73        | High Vibration with CO2 change|
 
 ## Navigation Module
 To provide more user-friendly navigation, parameter input, and parameter display in the field, a physical input has been provided To facilitate data entry, 4 main parameter inputs have been arranged, detailed below:
