@@ -265,7 +265,7 @@ $$
 To estimate the actual value in the system, simple modelling of the evaporator is used:
 
 $$ 
-\dot{m}_{r} = \frac{Q_{A}\rho_{A}(\bar{T})C_{p}(\bar{T})\Delta T + Q_{A}(H_{1}-H_{2}+\Delta W \cdot C)}{h(SST + {SH}_{useful})-h(LLT)} 
+\dot{m_{r}} = \frac{Q_{A}\rho_{A}(\bar{T})C_{p}(\bar{T})\Delta T + Q_{A}(H_{1}-H_{2}+\Delta W \cdot C)}{h(SST + {SH}_{useful})-h(LLT)} 
 $$
 
 Where:
