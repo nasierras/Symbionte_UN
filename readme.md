@@ -243,17 +243,17 @@ For this approach, it is better to calculate enthalpy values in four points:
 
 - Enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, 
 $$
-123
+COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
 $$
 
 - Enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, 
 $$
-456
+COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
 $$
 
 - Enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, 
 $$
-789
+COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
 $$
 
 - Enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure, knowing the isentropic index for the compressor ($\eta$)
@@ -262,15 +262,10 @@ h_{\text{DLT}} = \frac{1}{\eta} \big( h(P_{1},s(P_{1},\text{RGT})) - h_{\text{RG
 $$
 
 These parameters gaves us the ideal COP:
-$$
-COP_{\text{real}} = \frac{h_{\text{EVAP-OUT}} - h_{\text{LLT}}}{h_{\text{DLT}} - h_{\text{RGT}}}
-$$
+
 
 The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
 
-$$
-\varepsilon_{\text{COP}} = \frac{COP_{\text{real}}-COP_{\text{ideal}}}{COP_{\text{ideal}}}
-$$
 
 ### Mass flow
 For the mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571 :
