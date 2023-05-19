@@ -172,13 +172,13 @@ Once the data acquisition methods and the monitoring and protection modules have
 Although the render provides a reliable approximation of the final design, it is important to know that the difference between the design and manufacturing stages is that the latter does not consider some natural movements of the operator when making device connections.
 
 <div align="center" style="text-align: center;">
-  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="600">
+  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/Circuit.png" width="600">
 </div>
 
 For the prototype design stage, an investment of 260-man hours is estimated, which including programming work, PCB design, assembly, and testing. For an end-user, it is estimated that it may take 4 to 5 hours to assemble and calibrate the device.
  
 <div align="center" style="text-align: center;">
-  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="600">
+  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/Circuit_Real.png" width="600">
 </div>
 
 ## Diagnostics sheet
