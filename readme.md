@@ -199,7 +199,16 @@ To provide more user-friendly navigation, parameter input, and parameter display
 
 ## iIOT module
 The following procedure is a modification of the published by Microsoft Corporation in Azure SDK Development for Arduino. The IOT module is based on the MQTT (Message Queuing Telemetry Transport), which is a lightweight, publish subscribe-based messaging protocol. ESP32 sends JSON formatted (Javascript object notation) data (voltages, currents, pressures, temperatures, superheat, vibration, CO2 levels, and failure counters) to Microsoft Azure.
-In order to enhance communication with the user through social media a real-time feedback bot was developed in the device using Twilio and ThingESP. [14]
+1. Setting up Microsoft Azure IoT Hub:
+- Register a new device within the IoT Hub and note the device connection string, under the SymbionteUN2020 template. 
+- Using the device connection string obtained from the Azure IoT Hub, configure the MQTT client on the ESP32 to connect to the IoT Hub’s MQTT endpoint. 
+2. Read sensor data and format as JSON:
+- Read data from the sensors connected to the ESP32 (voltage, current, pressure, temperature, superheat, vibration, CO2 levels, and failure counters). 
+- Format the collected data into a JSON object.
+- Convert the JSON object to a string.
+- Use Azure services like Stream Analytics, Functions, or Logic Apps to process, analyze, or store the received data. 
+- Visualize and monitor the data in real-time using services like Azure Time Series Insights
+In order to enhance communication with the user trough social media a real-time feedback bot was developed in the device using Twilio and ThingESP.
 
 ### Data Validation
 Once the data acquisition methods and the monitoring and protection modules have been defined and characterized, it is important to evaluate the relevance of the device in the field. As systems become increasingly complex, involving more electronics for control, monitoring, and measurement of key parameters, it is essential that the workforce is aware of this new set of skills they must possess to take advantage of intelligent systems in solving the problem of efficiently diagnosing systems and subsystems, and understanding the high dependence on various variables in the refrigeration cycle.
@@ -233,8 +242,38 @@ For this approach, it is better to calculate enthalpy values in four points, ent
 The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
 
 ### Mass flow
-For mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571.
-This gives to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter. The mass flow $\dot{m}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF). To estimate the actual value in the system, simple modelling of the evaporator is used. The mass flow $\dot{m}$ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF). 
+For the mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571 :
+
+$$\dot{m}_{r} =\sum_{i=0}^{n} \sum_{j=0}^{m} C_{ij} T_{s}^{i} P_{d}^{j}$$
+
+This value must be adjusted according to the specific density ($\rho_{c}$) in the suction line compared to rated condition ($\rho_{r}$), and the $F_{v}$ Volumetric efficiency correction factor:
+
+$$\dot{m}_{c} = \displaystyle \left \{1 + F_{v} \left[ \left(\frac{\rho_{c}}{\rho_{r}} \right ) - 1\right ]\right \}\dot{m}_{r}$$
+
+This give to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter.
+
+The mass flow $\bar{\dot{m}}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF) ($x_{i}$):
+
+$$\bar{\dot{m}} = \displaystyle \sum_{i=1}^{k} \left( x_{i} \cdot P_{i} \cdot \dot{m}_{i}\right)$$
+
+To estimate the actual value in the system, simple modelling of the evaporator is used:
+
+$$\dot{m}_{r}=\displaystyle \frac{Q_{A}\rho_{A}(\bar{T})C_{p}(\bar{T})\Delta T + Q_{A}(H_{1}-H_{2}+\Delta W\cdot C)}{h(\textup{SST}+\textup{SH}_{\textup{useful}})-h(\textup{LLT})}$$
+
+Where:
+- $Q_{A}$: Air flow in ($m3/h$), defined by the evaporator manufacturer's manual.
+- $\rho_{A}(\bar{T})$: Air density in ($kg/m^{3}$), of the average air temperature in the cold room according to the altitude above sea level.
+- $C_{p}(\bar{T})$: Specific heat in ($J\,kg^{-1}\,K^{-1}$) calculated with the average temperature of the cold room.
+- $\Delta T$:  Average difference in ($K$) between air inlet and air outlet temperatures in the evaporator
+- $H_{1}$ and $H_{2}$: Enthalpy levels ($J/kg$) between air inlet and air outlet in the evaporator
+- $\Delta W$: Difference of the humidity of the room and the dew point of the air according to the altitude above sea level. 
+- $C$: Water latent heat of vaporization in ($J/kg$)
+- $h(\textup{SST}+\textup{SH}_{\textup{useful}})$: Enthalpy in ($J/kg$) of the measured output of the evaporator.
+- $h(\textup{LLT})$: Enthalpy in ($J/kg$) of the measured liquid line temperature.
+
+The mass flow $\bar{\dot{m}}$ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF) ($x_{i}$):
+
+$$\bar{\dot{m}} = \displaystyle \sum_{i=1}^{p} \left( x_{i} \cdot Q_{i} \cdot \dot{m}_{i}\right) \left( \displaystyle \frac{T_{\mathrm{OUT_{i}}}-T_{\mathrm{IN_{i}}}}{T_{\mathrm{OUT_{i}}}-T_{\mathrm{DEW}}} \right)$$
 
 ## Diagnostics sheet
 ### Pressures
