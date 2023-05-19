@@ -280,6 +280,36 @@ F2 --> End
 | 8    | Low Suction  Pressure| Experimental factors such as (1) low refrigerant charge (2) low ambient temperature (3) failure in the fan motor assembly in the evaporator or blocked coil (4) defective or poorly adjusted expansion valve (5) Incorrect adjustment in thermostatic control (6) restriction in suction line|
 
 ### Superheat
+```mermaid
+flowchart TB
+Start[Start]  --> A[SSP, Application, SLT, Refrigerant]
+A --> B{Application is CO2 subcritical?}
+B --Yes--> C{SH < 20K}
+B --No--> D{SH < 11K}
+C --Yes-->E[Low Superheat level]
+C --No--> F{SH > 25K}
+F --Yes--> G[High Superheat level]
+E --> End(End)
+G --> End
+D --No--> H{SH > 35K}
+D --Yes--> E
+F --No--> J[Normal Superheat Level]
+H --No-->J
+J --> End
+H --Yes--> G
+
+High Superheat Level  has consequences such as:
+- Inefficient Cooling: Superheat is the temperature difference between the refrigerant vapor and its saturation temperature at a given pressure. If the superheat is too high, it means that the refrigerant vapor entering the compressor is significantly above its saturation temperature. This can result in reduced heat transfer efficiency and inefficient cooling in the system, as the refrigerant is not fully evaporating in the evaporator.
+- Insufficient Cooling Capacity: Excessive superheat can lead to a decrease in the cooling capacity of the system. If the refrigerant vapor entering the compressor has a high superheat, it indicates that the refrigerant is not absorbing enough heat in the evaporator. As a result, the system may struggle to achieve the desired cooling temperatures and provide inadequate cooling for the intended application.
+- Compressor Overheating: High superheat can cause the compressor to overheat. When the refrigerant vapor entering the compressor is excessively superheated, it reduces the cooling effect on the compressor motor and can lead to overheating. This can result in premature wear and tear, decreased efficiency, and potentially even compressor failure.
+- Increased Energy Consumption: A high level of superheat can lead to increased energy consumption in the refrigeration system. When the system is operating with excessive superheat, it requires more energy to achieve the desired cooling effect. This increased energy consumption can result in higher operating costs and decreased overall system efficiency.
+- Frost or Ice Formation: In some cases, high superheat can lead to frost or ice formation on the evaporator coils. If the refrigerant vapor entering the evaporator has a high superheat, it can cause inadequate cooling of the coils, leading to condensation and subsequent frost or ice formation. This can reduce airflow, decrease heat transfer efficiency, and potentially damage the evaporator coils.
+Low superheat Level has consequences such as:
+- Compressor Damage: Superheat refers to the temperature difference between the refrigerant vapor and its saturation temperature at a given pressure. If the superheat is too low, it means that the refrigerant vapor is entering the compressor at a temperature close to or below its saturation temperature. This can result in liquid refrigerant entering the compressor, leading to compressor damage due to lack of lubrication and potential liquid slugging.
+- Reduced Cooling Capacity: Superheat plays a crucial role in ensuring the efficient transfer of heat in the evaporator. If the superheat is too low, it can result in insufficient evaporation of the refrigerant and reduced cooling capacity. This leads to poor performance and inadequate cooling in the refrigeration system.
+- Inefficient Operation: Low superheat can lead to inefficient operation of the system. When the refrigerant vapor enters the compressor at low superheat, it can reduce the overall efficiency of the system, leading to increased energy consumption and higher operating costs.
+- Frost or Ice Formation: In evaporator coils, low superheat can cause frost or ice formation. When the refrigerant temperature is too close to the saturation temperature, moisture in the air can freeze on the evaporator coils, leading to reduced airflow, decreased heat transfer efficiency, and potential system malfunctions.
+- Shortened Component Lifespan: Continuous operation with low superheat can increase the stress on system components, including the compressor, expansion valve, and evaporator. This additional stress can lead to premature wear and tear, reducing the lifespan of these components and requiring more frequent maintenance or replacement.
 
 ### Electrical
 This module is based in two calculations: percentage error from the nominal value ($\varepsilon$) and absolute deviation from the average ($\Delta$)
@@ -328,10 +358,48 @@ F3 --> End
 
 ### Vibration and Leakage
 
+When a refrigerant leak occurs, especially in enclosed areas without adequate ventilation, the released refrigerant gas can displace circulating air, including CO2 present in the environment. The presence of the refrigerant displaces air, which could result in increased or decreased CO2 levels depending on the characteristics of the refrigerant and the release.
+
+```mermaid
+flowchart TB
+Start[Start]  --> A[CO2]
+A --> C{CO2 > 600ppm}
+C --Yes--> D[High CO2 level]
+C --No--> E{COP < 300ppm}
+E --Yes-->F[Low CO2 level]
+E --No--> G[Normal CO2]
+G --> End(End)
+D ---> End
+F --> End
+Start --> A2[Angular Acceleration]
+A2 --> B2[ax, ay, az]
+B2 --Modal value--> B2i[a - average]
+B2i --> C2{a > ISO-20816 limit}
+C2 --Yes--> D2[High Vibration]
+C2 --No--> E2[Normal Vibration]
+E2 --> End
+D2 ---> End
+```
+
+If the leak occurs in a confined space and there is poor ventilation, refrigerant gas may build up, displacing air and lowering the oxygen concentration. This reduction in oxygen in the air can lead to an increase in CO2 levels, since CO2 occurs naturally as a byproduct of human respiration and combustion.
+
+It is important to note that refrigerants can have their own risks, such as toxicity or flammability, and it is necessary to take appropriate measures to control and reduce a refrigerant leak. In addition, established security protocols must be followed and professionals trained to deal with this type of situation must be called.
 
 ### Coefficent of Performance
+COP ideal uis calculated from the setpoint of the system or design point.
 
-
+```mermaid
+flowchart TB
+Start[Start]  --> B[COP]
+B --> C{COP > 1.05*COP real}
+C --Yes--> D[High COP]
+C --No--> E{COP > 0.95*COP real}
+E --Yes-->F[Low COP]
+E --No--> G[Normal COP]
+G --> End(End)
+D ---> End
+F --> End
+```
 
 | n    | COP Evap| COP Comp| Description |
 | :--- | :--- | :---|:--- |
