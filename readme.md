@@ -251,7 +251,7 @@ $$
 This value must be adjusted according to the specific density ($\rho_{c}$) in the suction line compared to rated condition ($\rho_{r}$), and the $F_{v}$ Volumetric efficiency correction factor:
 
 $$
-\dot{m_{c}} = \big(1 + F_{v} \bigg((\frac{\rho_{c}}{\rho_{r}})-1) \dot{m_{r}}
+\dot{m_{c}} = \bigg(1 + F_{v} \bigg(\bigg(\frac{\rho_{c}}{\rho_{r}}\bigg)-1\bigg) \dot{m_{r}}
 $$
 
 This give to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter.
