@@ -244,7 +244,7 @@ The “ideal” conditions will be calculated based in the values that must be k
 ### Mass flow
 For the mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571 :
 
-$$\dot{m}_{r} =\sum_{i=0}^{n} \sum_{j=0}^{m} C_{ij} T_{s}^{i} P_{d}^{j}$$
+$$\dot{m_{r}} =\sum_{i=0}^{n} \sum_{j=0}^{m} C_{ij} T_{s}^{i} P_{d}^{j}$$
 
 This value must be adjusted according to the specific density ($\rho_{c}$) in the suction line compared to rated condition ($\rho_{r}$), and the $F_{v}$ Volumetric efficiency correction factor:
 
