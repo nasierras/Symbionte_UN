@@ -258,12 +258,12 @@ $$
 
 - Enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure, knowing the isentropic index for the compressor ($\eta$)
 $$
-h_{\text{DLT}} = \frac{1}{\eta} \bigg( h(P_{1},s(P_{1},\text{RGT})) - h_{\text{RGT}} \bigg) + h_{\text{RGT}}
+h_{\text{DLT}} = \frac{1}{\eta} \big( h(P_{1},s(P_{1},\text{RGT})) - h_{\text{RGT}} \big) + h_{\text{RGT}}
 $$
 
 These parameters gaves us the ideal COP:
 $$
-COP_{\text{ideal}} = \frac{h_{\text{EVAP-OUT}}-h_{\text{LLT}}}{h_{\text{DLT}}-h{\text{RGT}}}
+COP_{\text{ideal}} = \frac{h_{\text{EVAP-OUT}}-h_{\text{LLT}}}{h_{\text{DLT}}-h_{\text{RGT}}}
 $$
 
 The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
