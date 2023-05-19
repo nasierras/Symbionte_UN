@@ -286,7 +286,7 @@ F2 --> End
 ### Electrical
 This module is based in two calculations: percentage error ($\varepsilon$) and absolute distance from the average ($Delta$)
 $$\varepsilon_{V} = \frac{V_{i}-V_{N}}{V_{N}}$$
-$$\DeltaV_{i} = \frac{max(|V_i-\bar{V}|)}{\bar{V}}$$
+$$\Delta V_{i} = \frac{max(|V_i-\bar{V}|)}{\bar{V}}$$
 Analousgly with the current consumption.
 ```mermaid
 flowchart TB
