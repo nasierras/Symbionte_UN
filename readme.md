@@ -282,7 +282,7 @@ Where:
 The mass flow $\bar{\dot{m}}$ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF) ($x_{i}$):
 
 $$
-\bar{\dot{m}} = \displaystyle \sum_{i=1}^{p} (x_{i} \cdot Q_{i} \cdot \dot{m}_{i}) (\displaystyle \frac{T_{OUT_{i}}-T_{IN_{i}}}{T_{OUT_{i}}-T_{DEW}})
+\bar{\dot{m_{r}}} = \sum_{i=1}^{p} (x_{i} \cdot Q_{i} \cdot \dot{m_{i}}) \bigg(\frac{T_{OUT_{i}}-T_{IN_{i}}}{T_{OUT_{i}}-T_{DEW}}\bigg)
 $$
 
 ## Diagnostics sheet
