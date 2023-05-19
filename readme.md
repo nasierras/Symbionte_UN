@@ -284,6 +284,49 @@ F2 --> End
 ### Superheat
 
 ### Electrical
+This module is based in two calculations: percentage error ($\varepsilon$) and absolute distance from the average ($Delta$)
+$$\varepsilon_{V} = \frac{V_{i}-V_{N}}{V_{N}}$$
+$$\DeltaV_{i} = \frac{max(|V_i-\bar{V}|)}{\bar{V}}$$
+Analousgly with the current consumption.
+```mermaid
+flowchart TB
+Start[Start]  --> A[Vi]
+A --> B[εVi]
+B --> C{εVi > -0.3}
+C --Yes--> D[Missing Phase]
+C --No--> E{εVi < -0.1}
+E --Yes-->F[Low Voltage]
+E --No-->G{εVi > 0.1}
+G --Yes--> H[High Voltage]
+G --No--> I[Normal Voltage]
+H --> End(End)
+D ---> End
+I --> End
+F --> End
+Start --> A2[Ai]
+A2 --> B2[εAi]
+B2 --> C2{εAi > 0.1}
+C2 --Yes--> D2[High Amps]
+C2 --No--> E2{εAi < -0.1}
+E2 --Yes-->F2[Low Amps]
+E2 --No--> H2[Normal Amps]
+H2 --> End
+D2 ---> End
+F2 --> End
+Start --> A3[Vi, Ai]
+A3 --> B3[Delta_V Delta_A]
+B3--> C3{Delta_V > 0.07 & Delta_A > 0.02}
+C3 --Yes--> D3[All Unbalances Detected]
+C3 --No--> E3{Delta_V > 0.07}
+E3 --Yes-->F3[Voltage Unbalance]
+E3 --No-->G3{Delta_A > 0.02}
+G3 --Yes--> H3[Current Unbalance]
+G3 --No--> I3[No Unbalance]
+H3 --> End
+D3 ---> End
+I3 --> End
+F3 --> End
+```
 
 ### Vibration and Leakage
 
