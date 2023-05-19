@@ -234,9 +234,7 @@ The “ideal” conditions will be calculated based in the values that must be k
 
 ### Mass flow
 For mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571.
-This gives to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter. The mass flow $\dot{m}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF). To estimate the actual value in the system, simple modelling of the evaporator is used. The mass flow m¯˙ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF). Side effects of the error in the mass flow, system will face:
-- Changes in cooling capacity: A high mass flow rate generally results in a higher cooling capacity, but without a good system to handle liquid flood back in the compressor inlet, it would increase rate of wearing of the compression sets. But a low mass flow rate can result in reduced cooling capacity, as less refrigerant circulates through the system, limiting heat absorption and transfer.
--	Risk of freezing: In some cases, a low mass flow rate can lead to the risk of evaporator coil freezing, as the refrigerant may not adequately absorb heat from the air or process being cooled.
+This gives to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter. The mass flow $\dot{m}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF). To estimate the actual value in the system, simple modelling of the evaporator is used. The mass flow $\dot{m}$ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF). 
 
 ## Diagnostics sheet
 ### Pressures
@@ -284,7 +282,7 @@ F2 --> End
 ### Superheat
 
 ### Electrical
-This module is based in two calculations: percentage error ($\varepsilon$) and absolute distance from the average ($Delta$)
+This module is based in two calculations: percentage error from the nominal value ($\varepsilon$) and absolute deviation from the average ($\Delta$)
 $$\varepsilon_{V} = \frac{V_{i}-V_{N}}{V_{N}}$$
 $$\Delta V_{i} = \frac{max(|V_i-\bar{V}|)}{\bar{V}}$$
 Analousgly with the current consumption.
@@ -330,13 +328,43 @@ F3 --> End
 
 ### Vibration and Leakage
 
+
 ### Coefficent of Performance
 
+
+
+| n    | COP Evap| COP Comp| Description |
+| :--- | :--- | :---|:--- |
+| 0    | Constant | Constant| This is the test case, objective to be achieved|
+| 1    | Decreasing | Decreasing| Friction losses in pipes, excessive overheating in refrigerant, insufficient subcooling, compressor with internal wear, improper system design|
+| 2    | Decreasing | Constant| Evaporator blocked, Insufficient airflow in cold room, damaged or poorly adjusted expansion valve, inadequate refrigerant charge|
+| 3    | Decreasing| Increasing | Higher suction and discharge pressures with high return gas temperature, insulation failures in return pipes|
+| 4    | Constant | Decreasing | Compressor wear, compressor overheating, electrical problems in winding, inadequate control of compressor stages, refrigerant leakage in compressor|
+| 5    | Constant | Increasing| Excessive overheating in the suction of the compressor lack of regulation of discharge cooling|
+| 6    | Increasing | Decreasing| Low suction and discharge pressures with high overheating in the evaporator and low return gas temperature, possible suction overheating error|
+| 7    | Increasing | Constant| Excessive overheating in the evaporator, possible subcooling of the liquid line not contemplated in the compressor|
+| 8    | Increasing | Increasing| Additional subcooling not contemplated in the calculation of the ideal COPs|
+
 ### Mass flow
+Mass flow is calculated from the AHRI 540 and AHR 571 coerfficents calculated from the Manufacturers:
 
-### Liquid and Suction Filters
+```mermaid
+flowchart TB
+Start[Start]  --> A[SSP, P disch]
+A --> B[m_dot]
+B --> C{m_dot > 1.15*m_dot AHRI}
+C --Yes--> D[High Massflow]
+C --No--> E{εVi < 0.85*m_dot AHRI}
+E --Yes-->F[Low Massflow]
+E --No--> G[Normal Massflow]
+G --> End(End)
+D ---> End
+F --> End
+```
 
-
+Side effects of the error in the mass flow, system will face:
+- Changes in cooling capacity: A high mass flow rate generally results in a higher cooling capacity, but without a good system to handle liquid flood back in the compressor inlet, it would increase rate of wearing of the compression sets. But a low mass flow rate can result in reduced cooling capacity, as less refrigerant circulates through the system, limiting heat absorption and transfer.
+-	Risk of freezing: In some cases, a low mass flow rate can lead to the risk of evaporator coil freezing, as the refrigerant may not adequately absorb heat from the air or process being cooled.
 
 ## References
 [1]	T. Birmpili, “Montreal protocol at 30: The governance structure, the evolution, and the kigali amendment,” Comptes Rendus Geoscience, vol. 350, no. 7, pp. 425–431, 2018.
