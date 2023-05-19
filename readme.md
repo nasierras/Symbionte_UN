@@ -138,7 +138,15 @@ Code also determines the vector to be loaded based on the application temperatur
 ## Vibration and Leakage Module
 Vibration analysis is widely known for the correct diagnosis of rotating parts and allows acceptance of values based on operational guidelines. The main purpose of these alarms is to make timely decisions about the machine, so that by analysing historical data, the machine’s downtime can be reduced, and the process has the least impact. The referential values are based on data provided by the ISO 20816-8 standard, which pertains to reciprocating machines.
 
-
+```mermaid
+graph LR
+ax[ax] --> HistogramAnalysis[HistogramAnalysis]
+ay[ay] --> HistogramAnalysis
+az[az] --> HistogramAnalysis
+HistogramAnalysis --> VibrationAnalysis[Vibration Analysis]
+VibrationAnalysis --> FailureTestPredictor[Failure Test Predictor]
+CO2 ----> FailureTestPredictor
+```
 
 Although the Fourier analysis (FFT) is commonly used in vibration analysis, due to the complexity of implementation and the number of operations required by the microcontroller when acquiring other variables and activating outputs, histogram analysis is used instead. This analysis estimates the probability distribution of the acceleration magnitude based on the physical place where the module is installed.
 
@@ -162,11 +170,16 @@ Once the data acquisition methods and the monitoring and protection modules have
 
 ### Prototype assembly and testing
 Although the render provides a reliable approximation of the final design, it is important to know that the difference between the design and manufacturing stages is that the latter does not consider some natural movements of the operator when making device connections.
- 
-Fig. 7. Circuit Assembly
+
+<div align="center" style="text-align: center;">
+  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="600">
+</div>
+
 For the prototype design stage, an investment of 260-man hours is estimated, which including programming work, PCB design, assembly, and testing. For an end-user, it is estimated that it may take 4 to 5 hours to assemble and calibrate the device.
  
-Fig. 8. Device Assembly
+<div align="center" style="text-align: center;">
+  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="600">
+</div>
 
 ## Diagnostics sheet
 ### Measurement and Protections
