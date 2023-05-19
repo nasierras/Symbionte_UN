@@ -64,6 +64,7 @@ To provide more user-friendly navigation, parameter input, and parameter display
 <div align="center" style="text-align: center;">
   <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="800">
 </div>
+
 ## iIOT module
 The following procedure is a modification of the published by Microsoft Corporation in Azure SDK Development for Arduino. The IOT module is based on the MQTT (Message Queuing Telemetry Transport), which is a lightweight, publish subscribe-based messaging protocol. ESP32 sends JSON formatted (Javascript object notation) data (voltages, currents, pressures, temperatures, superheat, vibration, CO2 levels, and failure counters) to Microsoft Azure.
 In order to enhance communication with the user through social media a real-time feedback bot was developed in the device using Twilio and ThingESP. [14]
