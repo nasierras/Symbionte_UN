@@ -90,6 +90,12 @@ Refrigerant is selected through a menu and every refrigerant selected will load 
 
 Each compressor manufacturer determines a minimum level of superheat for their RAC compressors equipment. This value is used as a lower limit of a ON/OFF Hysteresis plus output time delay controller implemented through code. After having each confirmation for all the actions previously named, the global module must activate relay outputs and the error counter.
 
+| Nominal| RTOS Code | Description |
+| :---   | :---:     | :---        |
+| SH0    | 20        | Normal Superheat |
+| SH1    | 21        | Low Superheat |
+| SH2    | 21        | High Superheat |
+
 ## Electrical Protection Module
 Data acquisitions performed by this module (See Fig. 5) are directly related to voltages and currents; nevertheless, the electrical motor is coupled to a vapor compression system, its nominal values differ from a standard electrical motor. This section will show a description, to determine if the equipment is working at nominal conditions or au contraire this behavior is contributing significantly to increase rate of wear. 
 
