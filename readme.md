@@ -2,7 +2,7 @@
 page_type: based on sample
 description: Symbionte
 languages:
-- c, arduino
+- c, arduino, Azure
 products:
 - azure-iot
 - azure-iot-pnp
@@ -11,7 +11,16 @@ products:
 ---
 
 # Symbionte UN
-iot-HVAC&R protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
+IOT-HVAC&R protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
+
+```mermaid
+graph TB
+IIOT[IIOT Module] --Sensor Data Collection and Analysis--> Data[Data Processing and Analysis]
+Data --Data Validation and Abnormaly Detection--> Alert[Alert Generation and Notifications]
+Alert --Generate alerts based on abnormal readings or systems faiulures--> Control[Control and Actuaction]
+Control --Activate relays for compressor contactor--> DataTrans[Data Transmission]
+DataTrans --Send data to Azure via MQTT protocol--> IIOT
+```
 
 ## Abstract
 This project addresses the problem of correct diagnosis of compressors for air conditioning and refrigeration systems, using instrumentation easily found in the global market in order to be low-cost, accessible and easy to assembly and diagnose, for all kind of users. For this work, the use of an Espressif ESP32 controller compatible with Arduino language and connected to Microsoft Azure is proposed, as well as algorithms based on trends that provide to different users, basic and advanced, with real-time knowledge of relevant variables and failures detected in the refrigeration process allows anticipating them under an enhanced condition-based maintenance scheme, reducing incorrect diagnoses and system downtime while improve capabilities for a better failure troubleshooting, control over spare parts and the reduction of spoiled product. Also, in order to massify this solution, this device can be used as an input with system data to generate relevant information to a recurrent neural network which diagnose, not only compressors but the complete system as well, under two significant variables which are coefficient of performance and mass flow.
@@ -27,16 +36,41 @@ This project addresses the problem of correct diagnosis of compressors for air c
   - Knowing the efficiency of the compressor based on the COP/EER (Coefficient of Performance/ Energy Efficiency Ratio)
 - Vibration and CO2 levels: This approach seeks to measure signs of excessive vibration and levels of displacement of the CO2 level to estimate the possibility of refrigerant leakage in the compressor or surrounding systems.
 **Total completion time**:  4 hours (included calibration)
+
+```mermaid
+graph LR
+Refrigerant[Refrigerant] --> SH_module[SH_module]
+Nominal_Voltage[Nominal Voltage] --> Energy_Meter[Energy Meter]
+Nominal_Horsepower[Nominal HP] -->  Energy_Meter
+Vibration_&_Leakage[Vibration and Leakage] --> Energy_Meter
+Compressor_Technology[Compressor Tech] --> Energy_Meter
+Phase_Number[Phase Number] --> Energy_Meter
+Frequency[Frequency] --> Energy_Meter
+Temperature_Application[Temperature Application] --> Envelope_Protection[Envelope Protection]
+Refrigerant  --> Envelope_Protection
+Vibration_Leakage[Vibration & Leakage] --> CBM_Module[CBM Module]
+Energy_Meter ----> CBM_Module
+Envelope_Protection --> CBM_Module
+SH_module --> CBM_Module
+CBM_Module --> Compressor_RO[Compressor Relay]
+CBM_Module --> Alarm_RO[Alarm RO]
+CBM_Module --> iIOT_Module[iIOT module]
+```
 Besides, sensor input modules have user-predefined configurations, such as unit preferences for temperature and pressure. Compressor technology enables a specific set of failures based on nominal horsepower, electrical parameters, and temperature application that adjust the linear regression parameters for electrical monitoring and protection.
+
 All code implemented in the present work has been developed in the Arduino IDE and the microcontroller device Espressif ESP32. In this case, the development work and future works are Arduino Compatible.
 
 ## Superheat module
 The superheat (SH) is a necessary variable in vapor compression refrigeration systems because the system requires that the state of the input must be gas to avoid liquid refrigerant from entering the compressor.
+
 The mathematical relationship is given by:
+
 $$SH = T_{mea} −T_{sat}$$
+
 This equation relates the temperature measured $T_{mea}$ in the compressor inlet with the saturated temperature $T_{sat}$, obtained from the pressure. Because the superheat value is not constant but varies as a normal effect of the refrigeration system (such as loads, inputs, expansion mechanism adjustment...), it would be inadequate to implement an ON/OFF (even with hysteresis) controller. In this module, it is more practical to use a series of interconnected blocks which determines the outputs according to the variables known as inputs.
 
 Refrigerant is selected through a menu and every refrigerant selected will load a specific set of coefficients saved in the device EEPROM. The calculated superheat will be stored and delayed in time, in order to appreciate the trend and behaviour and perform a more accurately protection. The DLT SH enabler module estimates compression isentropic discharge temperature per compressor (DLT), based on absolute compression ratio and suction temperature and compares to the real DLT.
+
 Each compressor manufacturer determines a minimum level of superheat for their RAC compressors equipment. This value is used as a lower limit of a ON/OFF Hysteresis plus output time delay controller implemented through code. After having each confirmation for all the actions previously named, the global module must activate relay outputs and the error counter.
 
 ## Electrical Protection Module
@@ -109,27 +143,6 @@ For mass flow, it becomes handy to use the public data for the compressors avail
 This gives to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter. The mass flow $\dot{m}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF). To estimate the actual value in the system, simple modelling of the evaporator is used. The mass flow m¯˙ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF). Side effects of the error in the mass flow, system will face:
 - Changes in cooling capacity: A high mass flow rate generally results in a higher cooling capacity, but without a good system to handle liquid flood back in the compressor inlet, it would increase rate of wearing of the compression sets. But a low mass flow rate can result in reduced cooling capacity, as less refrigerant circulates through the system, limiting heat absorption and transfer.
 -	Risk of freezing: In some cases, a low mass flow rate can lead to the risk of evaporator coil freezing, as the refrigerant may not adequately absorb heat from the air or process being cooled.
-
-```mermaid
-graph LR
-Refrigerant[Refrigerant] --> SH_module[SH_module]
-Nominal_Voltage[Nominal Voltage] --> Energy_Meter[Energy Meter]
-Nominal_Horsepower[Nominal HP] -->  Energy_Meter
-Vibration_&_Leakage[Vibration and Leakage] --> Energy_Meter
-Compressor_Technology[Compressor Tech] --> Energy_Meter
-Phase_Number[Phase Number] --> Energy_Meter
-Frequency[Frequency] --> Energy_Meter
-Temperature_Application[Temperature Application] --> Envelope_Protection[Envelope Protection]
-Refrigerant  --> Envelope_Protection
-Vibration_Leakage[Vibration & Leakage] --> CBM_Module[CBM Module]
-Energy_Meter ----> CBM_Module
-Envelope_Protection --> CBM_Module
-SH_module --> CBM_Module
-CBM_Module --> Compressor_RO[Compressor Relay]
-CBM_Module --> Alarm_RO[Alarm RO]
-CBM_Module --> iIOT_Module[iIOT module]
-```
-
 
 ## References
 [1]	T. Birmpili, “Montreal protocol at 30: The governance structure, the evolution, and the kigali amendment,” Comptes Rendus Geoscience, vol. 350, no. 7, pp. 425–431, 2018.
