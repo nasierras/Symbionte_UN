@@ -229,6 +229,47 @@ Those unbalances have side effects such as:
 5)	Reduced power factor
 Those values will be used in the reference document for using the device and will the output of a different RNN focused on giving to the user a more understandable reading of what is happening inside system.
 
+### Pressures
+```mermaid
+flowchart TB
+Start[Start]  --> A[SSP real]
+A --> B[SSP normal]
+B --> C{SSP > SP + Hy}
+C --Yes--> D[High Suction Pressure]
+C --No--> E{SSP < SP - Hy}
+E --Yes-->F[Low Suction Pressure]
+E --No-->G[Normal Suction Pressure]
+G --> End(End)
+D ---> End
+F --> End
+```
+
+```mermaid
+flowchart TB
+Start[Start]  --> A[P disch real]
+A --> B[P disch normal]
+B --> C{P disch > SP + Hy}
+C --Yes--> D[High Discharge Pressure]
+C --No--> E{P disch < SP - Hy}
+E --Yes-->F[Low Discharge Pressure]
+E --No-->G[Normal Discharge Pressure]
+G --> End(End)
+D ---> End
+F --> End
+```
+
+| n    | Zone | Description |
+| :--- | :---   | :---        |
+| 0    | Envelope Control | Zone defined by the control to maintain the regulation of the system, it is assumed correctly configured|
+| 1    | Low Suction Pressure and High Discharge Pressure | Experimental factors such as (1) refrigerant overload (2) suction line constraints (3) fan motor assembly failure in the condenser or gas cooler (4) presence of non condensable gases (5) dirty or blocked condenser|
+| 2    | High Discharge Pressure| Experimental factors such as (1) coolant overload (2) failure in the fan motor assembly in the condenser or gas cooler (3) presence of non-condensable gases (4) dirty or blocked condenser|
+| 3    |High Suction Pressure and High Discharge Pressure | Experimental factors such as (1) refrigerant overload (2) elevated ambient or engine room temperature (3) liquid line constraints (4) fan motor assembly failure in evaporator or blocked coil (5) low evaporator capacity|
+| 4    | High Suction Pressure| Experimental factors such as (1) low refrigerant charge (2) elevated ambient temperature (3) motor assembly failure fan in evaporator or blocked coil (4) faulty or poorly adjusted expansion valve (5) Incorrect setting in thermostatic control (6) restriction in the discharge line|
+| 5    | High Suction Pressure and Low Discharge Pressure | Experimental factors such as (1) defective compressor (2) refrigerant leakage (3) faulty or poorly adjusted expansion valve (4) clogged or blocked refrigerant lines (5) motor assembly failure fan in condenser or gas cooler|
+| 6    | Low Discharge Pressure | Experimental factors such as (1) low refrigerant charge (2) defective or poorly adjusted expansion valve (3) suction line restriction (4) defective compressor (5) oversized gas condenser or cooler or stage activation error or drive in motors|
+| 7    |  Low Suction  Pressure and Low  Discharge Pressure| Experimental factors such as (1) low refrigerant charge (2) defective or poorly adjusted expansion valve (3) defective compressor (4) refrigerant line restriction (5) Wrong setting in thermostatic control|
+| 8    | Low Suction  Pressure| Experimental factors such as (1) low refrigerant charge (2) low ambient temperature (3) failure in the fan motor assembly in the evaporator or blocked coil (4) defective or poorly adjusted expansion valve (5) Incorrect adjustment in thermostatic control (6) restriction in suction line|
+
 ## Device Data as Input for an RNN
 To propose an automatic system and obtain a greater set of characteristics of the acquired variables and be able to infer better results, a recurrent neural network is proposed, which are considered adequate to the problem due to their special characteristics:
 1)	Time Series: Refrigeration systems are dynamic processes and their variables, such as temperature and pressure, change over time. RNNs are designed to handle temporal sequences and capture relationships over time.
