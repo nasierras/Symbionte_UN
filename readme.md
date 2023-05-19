@@ -93,11 +93,36 @@ Each compressor manufacturer determines a minimum level of superheat for their R
 ## Electrical Protection Module
 Data acquisitions performed by this module (See Fig. 5) are directly related to voltages and currents; nevertheless, the electrical motor is coupled to a vapor compression system, its nominal values differ from a standard electrical motor. This section will show a description, to determine if the equipment is working at nominal conditions or au contraire this behavior is contributing significantly to increase rate of wear. 
 
+```mermaid
+graph LR
+V1[V1] ---> ZeroCrossDetection[Zero Cross Detection]
+V1 ---> VoltageProtector[Voltage Protector]
+V2[V2] ----> VoltageProtector
+V3[V3] ----> VoltageProtector
+A1[A1] --> CurrentProtector[Current Protector]
+A1 --> ZeroCrossDetection
+A2[A2] --> CurrentProtector
+A3[A3] --> CurrentProtector
+A1 ---> Time_Delay[Time Delay]
+A2 ---> Time_Delay
+A3 ---> Time_Delay
+Time_Delay --> CurrentProtector
+InstantPowerCalculator[Instant Power Calculator]
+Frequency[Frequency] ------> InstantPowerCalculator
+ZeroCrossDetection --> PF_Estimator[Power Factor Estimator]
+PF_Estimator --> InstantPowerCalculator
+VoltageProtector --> InstantPowerCalculator
+CurrentProtector ---> InstantPowerCalculator
+VoltageProtector --> V_EN[Voltage Enabler]
+CurrentProtector --> A_EN[Current Enabler]
+```
+
 Working current are estimated based on the nominal power of the electrical motor of the compressor, using a linear regression modeled with several data published by different manufacturers at different nominal working conditions. This baseline provides the microcontroller with a solid foundation to perform calculations to identify the average or expected current drawn by the electric motor according to the technology, application, and nominal horsepower.
 
 ## Envelope/Temperature Module
 The operating envelope of the compressor allows maintenance personnel to identify failures of some system components that may be affecting the performance of the equipment through operation or causing production losses associated with the cold room. The envelope module allows identifying four main conditions, and the interaction between them can yield more information to the maintenance personnel:
  
+
 
 Code also determines the vector to be loaded based on the application temperature and refrigerant. Following, if the operating point compared to a boundary (set point and hysteresis) (whether evaporation or condensation) is higher (+1), lower (-1) or inside (0). The optimal conditions (boundaries) were obtained by performing several searches in public manufacturing databases and cross-referencing that information to determine an average zone for protection.
 
