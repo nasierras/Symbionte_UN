@@ -55,13 +55,15 @@ Vibration analysis is widely known for the correct diagnosis of rotating parts a
 Although the Fourier analysis (FFT) is commonly used in vibration analysis, due to the complexity of implementation and the number of operations required by the microcontroller when acquiring other variables and activating outputs, histogram analysis is used instead. This analysis estimates the probability distribution of the acceleration magnitude based on the physical place where the module is installed.
 
 ## Navigation Module
-<img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" alt="alt text" width="800">
 To provide more user-friendly navigation, parameter input, and parameter display in the field, a physical input has been provided To facilitate data entry, 4 main parameter inputs have been arranged, detailed below:
 - _Mechanical menu [A]_: It allows setting compressor powers in integer values in order to predict the current consumption value. Compression technology to enable model-specific faults.
 - _Electrical menu [B]_: It allows the entry of the nominal electrical parameters, since the values are calculated based on 460V/3Ph/60Hz, therefore, to make a correct prediction, that correction is required.
 - _Refrigerant menu [C]_: It allows the selection of refrigerant, for the automatic selection of probes and adjusts the application for the protection limits of the compressor’s operating framework.
 - _Protections menu [D]_: Enables the compressor relay outputs, based on voltage, current and three ranges of temperature.
 
+<div style="text-align: center;">
+  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="800">
+</div>
 ## iIOT module
 The following procedure is a modification of the published by Microsoft Corporation in Azure SDK Development for Arduino. The IOT module is based on the MQTT (Message Queuing Telemetry Transport), which is a lightweight, publish subscribe-based messaging protocol. ESP32 sends JSON formatted (Javascript object notation) data (voltages, currents, pressures, temperatures, superheat, vibration, CO2 levels, and failure counters) to Microsoft Azure.
 In order to enhance communication with the user through social media a real-time feedback bot was developed in the device using Twilio and ThingESP. [14]
