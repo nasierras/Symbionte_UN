@@ -217,6 +217,27 @@ For the prototype design stage, an investment of 260-man hours is estimated, whi
   <img src="https://github.com/nasierras/Symbionte_UN/blob/main/Circuit_Real.png" width="600">
 </div>
 
+## Device Data as Input for an RNN
+To propose an automatic system and obtain a greater set of characteristics of the acquired variables and be able to infer better results, a recurrent neural network is proposed, which are considered adequate to the problem due to their special characteristics:
+1)	Time Series: Refrigeration systems are dynamic processes and their variables, such as temperature and pressure, change over time. RNNs are designed to handle temporal sequences and capture relationships over time.
+2)	Short- and long-term memory: RNNs, especially variants such as LSTM (Long Short-Term Memory) and GRU (Gated Recurrent Unit), can remember information from past events and use it to improve prediction of future events.
+3)	Flexibility in the input structure: RNNs can handle sequences of variable length, which makes them more suitable for working with data from refrigeration systems, which can vary in duration and frequency.
+4)	Generalization: RNNs can generalize better from limited data and can be more robust to noise and changes in the operating environment compared to ANNs (Artificial Neural Networks).
+COP Values and Mass Flow: As it was previously defined, it can be seen that the generated device manages to be autonomous in terms of the generated measurements; however, in order to deliver said data to an intelligent system that can identify variables beyond the physical limitations (memory and activation of outputs) of the microcontroller, two additional outputs are proposed that can be computed by means of code in an external computer system with the analysis of historical data.
+- COP: It is a key metric used to evaluate the efficiency of a refrigeration system. It is the ratio of the useful cooling effect provided by the system to the amount of energy consumed (usually electrical energy) to operate the system. In other words, COP indicates how much cooling is achieved per unit of energy input.
+- Mass flow: It refers to the amount of refrigerant moving through the system per unit of time. It is an important parameter that impacts the performance and efficiency of a refrigeration system.
+
+### Coefficient of Performance
+For the COP, generate a percentage error between “ideal” conditions and real conditions, will allow the intelligent system to infer better results between the energy invested and the outputs both in the compressor capacity and in the net refrigerant effect (evaporator capacity).
+For this approach, it is better to calculate enthalpy values in four points, enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure.
+The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
+
+### Mass flow
+For mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571.
+This gives to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter. The mass flow $\dot{m}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF). To estimate the actual value in the system, simple modelling of the evaporator is used. The mass flow m¯˙ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF). Side effects of the error in the mass flow, system will face:
+- Changes in cooling capacity: A high mass flow rate generally results in a higher cooling capacity, but without a good system to handle liquid flood back in the compressor inlet, it would increase rate of wearing of the compression sets. But a low mass flow rate can result in reduced cooling capacity, as less refrigerant circulates through the system, limiting heat absorption and transfer.
+-	Risk of freezing: In some cases, a low mass flow rate can lead to the risk of evaporator coil freezing, as the refrigerant may not adequately absorb heat from the air or process being cooled.
+
 ## Diagnostics sheet
 ### Measurement and Protections
 Protection flow diagrams are a useful tool to ensure the correct operation and safety of refrigeration compressor diagnostic systems, which in turn are used as input for a Recurrent Neural Network (RNN) in the diagnosis of refrigeration compressor systems.
@@ -230,6 +251,9 @@ Those unbalances have side effects such as:
 Those values will be used in the reference document for using the device and will the output of a different RNN focused on giving to the user a more understandable reading of what is happening inside system.
 
 ### Pressures
+This proccedure is based in the normalized pressure for the device:
+$$P_{N}=\displaystyle \frac{P_{i}-P_{min}}{P_{max} - P_{min}}$$
+Following the pressure flow diagrams:
 ```mermaid
 flowchart TB
 Start[Start]  --> A[SSP real]
@@ -270,26 +294,17 @@ F --> End
 | 7    |  Low Suction  Pressure and Low  Discharge Pressure| Experimental factors such as (1) low refrigerant charge (2) defective or poorly adjusted expansion valve (3) defective compressor (4) refrigerant line restriction (5) Wrong setting in thermostatic control|
 | 8    | Low Suction  Pressure| Experimental factors such as (1) low refrigerant charge (2) low ambient temperature (3) failure in the fan motor assembly in the evaporator or blocked coil (4) defective or poorly adjusted expansion valve (5) Incorrect adjustment in thermostatic control (6) restriction in suction line|
 
-## Device Data as Input for an RNN
-To propose an automatic system and obtain a greater set of characteristics of the acquired variables and be able to infer better results, a recurrent neural network is proposed, which are considered adequate to the problem due to their special characteristics:
-1)	Time Series: Refrigeration systems are dynamic processes and their variables, such as temperature and pressure, change over time. RNNs are designed to handle temporal sequences and capture relationships over time.
-2)	Short- and long-term memory: RNNs, especially variants such as LSTM (Long Short-Term Memory) and GRU (Gated Recurrent Unit), can remember information from past events and use it to improve prediction of future events.
-3)	Flexibility in the input structure: RNNs can handle sequences of variable length, which makes them more suitable for working with data from refrigeration systems, which can vary in duration and frequency.
-4)	Generalization: RNNs can generalize better from limited data and can be more robust to noise and changes in the operating environment compared to ANNs (Artificial Neural Networks).
-COP Values and Mass Flow: As it was previously defined, it can be seen that the generated device manages to be autonomous in terms of the generated measurements; however, in order to deliver said data to an intelligent system that can identify variables beyond the physical limitations (memory and activation of outputs) of the microcontroller, two additional outputs are proposed that can be computed by means of code in an external computer system with the analysis of historical data.
-- COP: It is a key metric used to evaluate the efficiency of a refrigeration system. It is the ratio of the useful cooling effect provided by the system to the amount of energy consumed (usually electrical energy) to operate the system. In other words, COP indicates how much cooling is achieved per unit of energy input.
-- Mass flow: It refers to the amount of refrigerant moving through the system per unit of time. It is an important parameter that impacts the performance and efficiency of a refrigeration system.
+### Superheat
 
-### Coefficient of Performance
-For the COP, generate a percentage error between “ideal” conditions and real conditions, will allow the intelligent system to infer better results between the energy invested and the outputs both in the compressor capacity and in the net refrigerant effect (evaporator capacity).
-For this approach, it is better to calculate enthalpy values in four points, enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure.
-The “ideal” conditions will be calculated based in the values that must be known are isentropic efficiency of the compressor, set points for control and temps from liquid line and outlet for evaporators.
+### Electrical
+
+### Vibration and Leakage
+
+### Coefficent of Performance
 
 ### Mass flow
-For mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571.
-This gives to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter. The mass flow $\dot{m}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF). To estimate the actual value in the system, simple modelling of the evaporator is used. The mass flow m¯˙ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF). Side effects of the error in the mass flow, system will face:
-- Changes in cooling capacity: A high mass flow rate generally results in a higher cooling capacity, but without a good system to handle liquid flood back in the compressor inlet, it would increase rate of wearing of the compression sets. But a low mass flow rate can result in reduced cooling capacity, as less refrigerant circulates through the system, limiting heat absorption and transfer.
--	Risk of freezing: In some cases, a low mass flow rate can lead to the risk of evaporator coil freezing, as the refrigerant may not adequately absorb heat from the air or process being cooled.
+
+### Liquid and Suction Filters
 
 
 
