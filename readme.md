@@ -69,6 +69,23 @@ $$SH = T_{mea} −T_{sat}$$
 
 This equation relates the temperature measured $T_{mea}$ in the compressor inlet with the saturated temperature $T_{sat}$, obtained from the pressure. Because the superheat value is not constant but varies as a normal effect of the refrigeration system (such as loads, inputs, expansion mechanism adjustment...), it would be inadequate to implement an ON/OFF (even with hysteresis) controller. In this module, it is more practical to use a series of interconnected blocks which determines the outputs according to the variables known as inputs.
 
+```mermaid
+graph LR
+SLT[SLT] --> SH_measurement[SH measurement]
+SSP[SSP] --> SH_measurement
+P_disch[P disch] --> SH_measurement
+P_disch --> DLT_SH_Enabler[DLT SH Enabler]
+DLT[DLT] --> DLT_SH_Enabler
+SH_measurement --SH--> Time_delay[SH Time Delay]
+Amp1[Amps1] ----> SH_Protector_EN[SH Protector EN]
+Time_delay --> SH_Protector_EN
+DLT_SH_Enabler --DLT_EN--> SH_Protector_EN
+SLT --> DLT_SH_Enabler
+SSP --> DLT_SH_Enabler
+SH_measurement --> SH_Protector_EN
+SH_Protector_EN --> SH_EN[SH Enabler]
+```
+
 Refrigerant is selected through a menu and every refrigerant selected will load a specific set of coefficients saved in the device EEPROM. The calculated superheat will be stored and delayed in time, in order to appreciate the trend and behaviour and perform a more accurately protection. The DLT SH enabler module estimates compression isentropic discharge temperature per compressor (DLT), based on absolute compression ratio and suction temperature and compares to the real DLT.
 
 Each compressor manufacturer determines a minimum level of superheat for their RAC compressors equipment. This value is used as a lower limit of a ON/OFF Hysteresis plus output time delay controller implemented through code. After having each confirmation for all the actions previously named, the global module must activate relay outputs and the error counter.
