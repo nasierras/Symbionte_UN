@@ -243,22 +243,22 @@ For this approach, it is better to calculate enthalpy values in four points:
 
 - Enthalpy value at Liquid Line Temperature, before entering TXV at discharge pressure, 
 $$
-
+123
 $$
 
 - Enthalpy value at Evaporator outlet, measuring saturated suction temperature plus useful fraction of superheat at suction pressure, 
 $$
-
+456
 $$
 
 - Enthalpy value at compressor inlet, measuring compressor return gas temperature at suction pressure, 
 $$
-
+789
 $$
 
 - Enthalpy value at compressor outlet, measuring compressor discharge line at suction pressure, knowing the isentropic index for the compressor ($\eta$)
 $$
-h_{DLT} = \frac{1}{\eta} \big(h(P_{1}, s\big(P_{1}, RGT \big)\big) - h_{RGT} \big) + h_{RGT}
+h_{\text{DLT}} = \frac{1}{\eta} \big( h(P_{1},s(P_{1},\text{RGT})) - h_{\text{RGT}} \big) + h_{\text{RGT}}
 $$
 
 These parameters gaves us the ideal COP:
