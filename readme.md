@@ -244,21 +244,29 @@ The “ideal” conditions will be calculated based in the values that must be k
 ### Mass flow
 For the mass flow, it becomes handy to use the public data for the compressors available in software and technical web pages and calculate the mass flow according to the AHRI-540 standard and AHRI-571 :
 
-$$\dot{m_{r}} =\sum_{i=0}^{n} \sum_{j=0}^{m} C_{ij} T_{s}^{i} P_{d}^{j}$$
+$$
+\dot{m_{r}} =\sum_{i=0}^{n} \sum_{j=0}^{m} C_{ij} T_{s}^{i} P_{d}^{j}
+$$
 
 This value must be adjusted according to the specific density ($\rho_{c}$) in the suction line compared to rated condition ($\rho_{r}$), and the $F_{v}$ Volumetric efficiency correction factor:
 
-$$\dot{m_{c}} = \displaystyle (1 + F_{v} ((\frac{\rho_{c}}{\rho_{r}})-1) \dot{m_{r}}$$
+$$
+\dot{m_{c}} = \displaystyle (1 + F_{v} ((\frac{\rho_{c}}{\rho_{r}})-1) \dot{m_{r}}
+$$
 
 This give to the algorithm a point to evaluate a good approach to a real condition of mass flow without installing any more instrumentation such a flow meter.
 
 The mass flow $\bar{\dot{m}}$ by the compression group (formed by $k$ compressors) is calculated according to the product of the fraction of power ($P_{i}$) and the activation signal obtained from the compressor state (ON/ OFF) ($x_{i}$):
 
-$$ \bar{\dot{m}} = \sum_{i=1}^{k} \left( x_{i} \cdot P_{i} \cdot \dot{m}_{i}\right) $$
+$$ 
+\bar{\dot{m}} = \sum_{i=1}^{k} (x_{i} \cdot P_{i} \cdot \dot{m}_{i}) 
+$$
 
 To estimate the actual value in the system, simple modelling of the evaporator is used:
 
-$$ \dot{m}_{r} = \frac{Q_{A}\rho_{A}(\bar{T})C_{p}(\bar{T})\Delta T + Q_{A}(H_{1}-H_{2}+\Delta W\cdot C)}{h(\textup{SST}+\textup{SH}_{\textup{useful}})-h(\textup{LLT})} $$
+$$ 
+\dot{m}_{r} = \frac{Q_{A}\rho_{A}(\bar{T})C_{p}(\bar{T})\Delta T + Q_{A}(H_{1}-H_{2}+\Delta W\cdot C)}{h(\textup{SST}+\textup{SH}_{\textup{useful}})-h(\textup{LLT})} 
+$$
 
 Where:
 - $Q_{A}$: Air flow in ($m3/h$), defined by the evaporator manufacturer's manual.
@@ -273,7 +281,9 @@ Where:
 
 The mass flow $\bar{\dot{m}}$ required by the $p$ evaporators in the suction group is calculated according to the product of the fraction of load ($Q_{i}$), the sensible heat ratio (SHR) and the activation signal obtained from the solenoid state (ON/ OFF) ($x_{i}$):
 
-$$\bar{\dot{m}} = \displaystyle \sum_{i=1}^{p} \left( x_{i} \cdot Q_{i} \cdot \dot{m}_{i}\right) \left( \displaystyle \frac{T_{\mathrm{OUT_{i}}}-T_{\mathrm{IN_{i}}}}{T_{\mathrm{OUT_{i}}}-T_{\mathrm{DEW}}} \right)$$
+$$
+\bar{\dot{m}} = \displaystyle \sum_{i=1}^{p} (x_{i} \cdot Q_{i} \cdot \dot{m}_{i}) (\displaystyle \frac{T_{\mathrm{OUT_{i}}}-T_{\mathrm{IN_{i}}}}{T_{\mathrm{OUT_{i}}}-T_{\mathrm{DEW}}})
+$$
 
 ## Diagnostics sheet
 ### Pressures
