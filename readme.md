@@ -122,12 +122,24 @@ Working current are estimated based on the nominal power of the electrical motor
 ## Envelope/Temperature Module
 The operating envelope of the compressor allows maintenance personnel to identify failures of some system components that may be affecting the performance of the equipment through operation or causing production losses associated with the cold room. The envelope module allows identifying four main conditions, and the interaction between them can yield more information to the maintenance personnel:
  
-
+```mermaid
+graph LR
+APP[Application] ----> EnvelopeProtection[Envelope Protection]
+SSP[SSP] --> EnvelopeProtection
+P_disch[P discharge] --> EnvelopeProtection
+SSP ---> Time_delay[Time delay]
+P_disch ---> Time_delay
+Time_delay --> EnvelopeProtection
+EnvelopeProtection --> ErrorType[Error Type]
+```
 
 Code also determines the vector to be loaded based on the application temperature and refrigerant. Following, if the operating point compared to a boundary (set point and hysteresis) (whether evaporation or condensation) is higher (+1), lower (-1) or inside (0). The optimal conditions (boundaries) were obtained by performing several searches in public manufacturing databases and cross-referencing that information to determine an average zone for protection.
 
 ## Vibration and Leakage Module
 Vibration analysis is widely known for the correct diagnosis of rotating parts and allows acceptance of values based on operational guidelines. The main purpose of these alarms is to make timely decisions about the machine, so that by analysing historical data, the machine’s downtime can be reduced, and the process has the least impact. The referential values are based on data provided by the ISO 20816-8 standard, which pertains to reciprocating machines.
+
+
+
 Although the Fourier analysis (FFT) is commonly used in vibration analysis, due to the complexity of implementation and the number of operations required by the microcontroller when acquiring other variables and activating outputs, histogram analysis is used instead. This analysis estimates the probability distribution of the acceleration magnitude based on the physical place where the module is installed.
 
 ## Navigation Module
