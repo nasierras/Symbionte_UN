@@ -257,20 +257,16 @@ E --No-->G[Normal Suction Pressure]
 G --> End(End)
 D ---> End
 F --> End
-```
-
-```mermaid
-flowchart TB
-Start[Start]  --> A[P disch real]
-A --> B[P disch normal]
-B --> C{P disch > SP + Hy}
-C --Yes--> D[High Discharge Pressure]
-C --No--> E{P disch < SP - Hy}
-E --Yes-->F[Low Discharge Pressure]
-E --No-->G[Normal Discharge Pressure]
-G --> End(End)
-D ---> End
-F --> End
+Start --> A2[P disch real]
+A2 --> B2[P disch normal]
+B2 --> C2{P disch > SP + Hy}
+C2 --Yes--> D2[High Discharge Pressure]
+C2 --No--> E2{P disch < SP - Hy}
+E2 --Yes-->F2[Low Discharge Pressure]
+E2 --No-->G2[Normal Discharge Pressure]
+G2 --> End
+D2 ---> End
+F2 --> End
 ```
 
 | n    | Zone | Description |
