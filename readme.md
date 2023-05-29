@@ -21,6 +21,9 @@ IOT-HVAC&R protection module based on ESP32 to Azure IoT Central using the Azure
   <img src="https://github.com/nasierras/Symbionte_UN/blob/main/Symbionte_Network_Architecture.png" width="800">
 </div>
 
+## Abstract
+This project addresses the problem of correct diagnosis of compressors for air conditioning and refrigeration systems, using instrumentation easily found in the global market in order to be low-cost, accessible and easy to assembly and diagnose, for all kind of users. For this work, the use of an Espressif ESP32 controller compatible with Arduino language and connected to Microsoft Azure is proposed, as well as algorithms based on trends that provide to different users, basic and advanced, with real-time knowledge of relevant variables and failures detected in the refrigeration process allows anticipating them under an enhanced condition-based maintenance scheme, reducing incorrect diagnoses and system downtime while improve capabilities for a better failure troubleshooting, control over spare parts and the reduction of spoiled product. Also, in order to massify this solution, this device can be used as an input with system data to generate relevant information to a recurrent neural network which diagnose, not only compressors but the complete system as well, under two significant variables which are coefficient of performance and mass flow.
+
 ```mermaid
 graph TB
 IIOT[IIOT Module] --Sensor Data Collection and Analysis--> Data[Data Processing and Analysis]
@@ -29,9 +32,6 @@ Alert --Generate alerts based on abnormal readings or systems faiulures--> Contr
 Control --Activate relays for compressor contactor--> DataTrans[Data Transmission]
 DataTrans --Send data to Azure via MQTT protocol--> IIOT
 ```
-
-## Abstract
-This project addresses the problem of correct diagnosis of compressors for air conditioning and refrigeration systems, using instrumentation easily found in the global market in order to be low-cost, accessible and easy to assembly and diagnose, for all kind of users. For this work, the use of an Espressif ESP32 controller compatible with Arduino language and connected to Microsoft Azure is proposed, as well as algorithms based on trends that provide to different users, basic and advanced, with real-time knowledge of relevant variables and failures detected in the refrigeration process allows anticipating them under an enhanced condition-based maintenance scheme, reducing incorrect diagnoses and system downtime while improve capabilities for a better failure troubleshooting, control over spare parts and the reduction of spoiled product. Also, in order to massify this solution, this device can be used as an input with system data to generate relevant information to a recurrent neural network which diagnose, not only compressors but the complete system as well, under two significant variables which are coefficient of performance and mass flow.
 
 ## Scope
 - Electrical values: Compression system is coupled to an electric motor that is cooled (many times) by the refrigerant substance.
