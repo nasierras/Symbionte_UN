@@ -13,6 +13,14 @@ products:
 # Symbionte UN
 IOT-HVAC&R protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
 
+<div align="center" style="text-align: center;">
+  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="600">
+</div>
+
+<div align="center" style="text-align: center;">
+  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/User_Navegation.png" width="600">
+</div>
+
 ```mermaid
 graph TB
 IIOT[IIOT Module] --Sensor Data Collection and Analysis--> Data[Data Processing and Analysis]
