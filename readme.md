@@ -14,10 +14,6 @@ products:
 IOT-HVAC&R protection module based on ESP32 to Azure IoT Central using the Azure SDK for C Arduino library
 
 <div align="center" style="text-align: center;">
-  <img src="https://github.com/nasierras/Symbionte_UN/blob/main/Symbionte_Instances.png" width="800">
-</div>
-
-<div align="center" style="text-align: center;">
   <img src="https://github.com/nasierras/Symbionte_UN/blob/main/Symbionte_Network_Architecture.png" width="800">
 </div>
 
